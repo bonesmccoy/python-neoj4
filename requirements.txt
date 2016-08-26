@@ -1,0 +1,4 @@
+Flask==0.11.1
+connexion==1.0.109
+pytest==3.0.1
+py2neo==3.0

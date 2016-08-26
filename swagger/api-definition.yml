@@ -1,0 +1,38 @@
+swagger: "2.0"
+
+info:
+  title: "Datapoint definition Engine"
+  version: "1.0"
+
+basePath: /v1.0
+
+paths:
+  /movies:
+    get:
+      tags: [Movie]
+      operationId: api.movies.movies
+      parameters:
+        - name: actor
+          in: query
+          type: string
+      responses:
+        200:
+          description: 'Movie List'
+          schema:
+            $ref: '#/definitions/movie_list'
+
+definitions:
+  movie_list:
+    type: array
+    items:
+      $ref: '#/definitions/movie'
+  movie:
+    type: object
+    properties:
+      title:
+        type: string
+      tagline:
+        type: string
+      released:
+        type: string
+
