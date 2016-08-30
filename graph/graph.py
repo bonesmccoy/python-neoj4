@@ -2,7 +2,7 @@ from config import config
 from py2neo import Graph, authenticate
 
 
-class DataPointGraph:
+class BaseGraph:
 
     @property
     def graph(self):
