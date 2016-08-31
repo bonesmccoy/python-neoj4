@@ -20,8 +20,29 @@ paths:
           description: 'Movie List'
           schema:
             $ref: '#/definitions/movie_list'
+  /movie/{title}/details:
+    get:
+      tags: [Movie]
+      operationId: api.movies.movie_details
+      parameters:
+        - name: title
+          in: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: 'Movie Detail'
+          schema:
+            $ref: '#/definitions/movie_details'
 
 definitions:
+  person:
+    type: object
+    properties:
+      name:
+        type: string
+      born:
+        type: integer
   movie_list:
     type: array
     items:
@@ -35,4 +56,24 @@ definitions:
         type: string
       released:
         type: string
+  movie_details:
+    type: object
+    properties:
+      details:
+        type: object
+        $ref: '#/definitions/movie'
+      actors:
+        type: array
+        items:
+          $ref: '#/definitions/person'
+      producers:
+        type: array
+        items:
+          $ref: '#/definitions/person'
+      directors:
+        type: array
+        items:
+          $ref: '#/definitions/person'
+
+
 
