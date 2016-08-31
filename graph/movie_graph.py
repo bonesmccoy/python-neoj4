@@ -16,6 +16,8 @@ class MovieGraph(BaseGraph):
     def details(self, title):
         query = "MATCH (m:Movie)<-[r]-(p:Person) \
                 WHERE m.title = '" + title + "' \
+                WITH m LIMIT 1 \
+                MATCH (m)<-[r]-(p:Person) \
                 RETURN m,r,p"
 
         return self.graph.run(query)

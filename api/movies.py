@@ -1,5 +1,5 @@
 from graph.movie_graph import MovieGraph
-from py2neo import Node, Relationship
+from movies.movie_details_builder import MovieDetailsBuilder
 
 
 def movies(actor=None):
@@ -12,21 +12,12 @@ def movies(actor=None):
 def movie_details(title):
     graph = MovieGraph()
     result = graph.details(title)
+    builder = MovieDetailsBuilder()
 
-    actors = []
-    producers = []
-    directors = []
-    movie = None
     for record in result:
-        if not movie:
-            movie = record['m']
+        movie = record['m']
         relationship = record['r']
         person = record['p']
-        if relationship.type() == 'ACTED_IN':
-            actors.append(dict(person))
-        if relationship.type() == 'PRODUCED':
-            producers.append(dict(person))
-        if relationship.type() == 'DIRECTED':
-            directors.append(dict(person))
+        builder.add(movie, relationship, person)
 
-    return dict({"details": movie, "actors": actors, "producers": producers, "directors": directors})
+    return builder.create()
